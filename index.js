@@ -6,15 +6,15 @@ cells.forEach(cell=>cell.addEventListener('click', playTicTac))
 
 function playTicTac(e){
     const cellIndex = this.getAttribute("id")
-    if(e.target.innerText===""&& gameRun){
+    if(e.target.innerText==="" && gameRun){
         if(xTurn){
             e.target.innerText = "X"
-            statusOfGame.innerText = "Щас время О"
+            statusOfGame.innerText = "O's turn"
             options[cellIndex] = "X"
             xTurn = false
         } else {
             e.target.innerText = "O"
-            statusOfGame.innerText = "Щас время Х"
+            statusOfGame.innerText = "X's turn"
             options[cellIndex] = "O"
             xTurn = true
         }
@@ -52,7 +52,11 @@ function checkIfWon(){
     }
     if(result) {
         gameRun=false
-        statusOfGame.innerText = "Game Over"
+        if(xTurn){
+            statusOfGame.innerText = "O wins"
+        } else {
+            statusOfGame.innerText = "X wins"
+        }
         options = ["","","","","","","","","",]
     } else if(!options.includes("")){
         statusOfGame.innerText = "Draw"
@@ -60,13 +64,11 @@ function checkIfWon(){
         options = ["","","","","","","","","",]
     }
 }
-
-
 document.getElementById("restart").addEventListener('click', restartGame)
 function restartGame(){
     cells.forEach(cell=>cell.innerText="")
     xTurn = true
     gameRun = true
-    statusOfGame.innerText=""
+    statusOfGame.innerText="X's turn"
     
 }
